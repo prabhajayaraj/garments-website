@@ -15,13 +15,15 @@ pipeline {
             }
         }
 
-        stage('Checkout Code Repo') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/prabhajayaraj/garments-website-2',
-                    credentialsId: 'aws-credentials'
-            }
-        }
+        // stage('Checkout Code Repo') {
+        //     steps {
+        //         git branch: 'main',
+        //             url: 'https://github.com/prabhajayaraj/garments-website-2',
+        //             credentialsId: 'aws-credentials'
+        //     }
+        // }
+
+        
 // New Terraform stage
         // stage('Terraform Init & Apply') {
         //     steps {
