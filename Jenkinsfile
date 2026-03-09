@@ -1,29 +1,29 @@
-
 pipeline {
     agent any
 
     stages {
 
+        stage('Checkout Jenkins Repo') {
+            steps {
+                git 'https://github.com/prabhajayaraj/garments-website.git'
+            }
+        }
+
         stage('Clone Terraform Repo') {
             steps {
-                git 'https://github.com/prabhajayaraj/garments.git'
+                git url: 'https://github.com/prabhajayaraj/garments.git', credentialsId: 'github-token'
             }
         }
 
-        stage('Terraform Init & Apply') {
+        stage('Terraform Init') {
             steps {
                 sh 'terraform init'
-                sh 'terraform apply -auto-approve'
             }
         }
 
-        stage('Clone Website Repo') {
+        stage('Terraform Apply') {
             steps {
-                git 'stage('Clone Terraform Repo') {
-    steps {
-        git url: 'https://github.com/prabhajayaraj/garments.git', credentialsId: 'github-token'
-    }
-}'
+                sh 'terraform apply -auto-approve'
             }
         }
 
