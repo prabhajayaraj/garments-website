@@ -13,27 +13,27 @@ pipeline {
             steps {
                 dir('terraform') {
                     git branch: 'main',
-                    url: 'https://github.com/prabhajayaraj/garments.git',
-                    credentialsId: 'github-token'
+                    url: 'https://github.com/prabhajayaraj/garments-website-2.git',
+                    //credentialsId: 'github-token'
                 }
             }
         }
 
-        stage('Terraform Init') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                }
-            }
-        }
+        // stage('Terraform Init') {
+        //     steps {
+        //         dir('terraform') {
+        //             sh 'terraform init'
+        //         }
+        //     }
+        // }
 
-        stage('Terraform Apply') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform apply -auto-approve'
-                }
-            }
-        }
+        // stage('Terraform Apply') {
+        //     steps {
+        //         dir('terraform') {
+        //             sh 'terraform apply -auto-approve'
+        //         }
+        //     }
+        // }
 
     }
 }
