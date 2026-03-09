@@ -1,39 +1,43 @@
 pipeline {
     agent any
 
+    environment {
+        AWS_DEFAULT_REGION = 'us-east-1'
+        S3_BUCKET = 'demo-surya-01 '
+    }
+
     stages {
-
-        stage('Checkout Website Repo') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/prabhajayaraj/garments-website.git'
+                git branch: 'main',
+                    url: 'https://github.com/prabhajayaraj/garments-website-2',
+                    credentialsId: 'aws-credentials'
             }
         }
-
-        stage('Clone Terraform Repo') {
-            steps {
-                dir('terraform') {
-                    git branch: 'main',
-                    url: 'https://github.com/prabhajayaraj/garments-website-2.git',
-                    //credentialsId: 'github-token'
-                }
-            }
-        }
-
-        // stage('Terraform Init') {
+// New Terraform stage
+        // stage('Terraform Init & Apply') {
         //     steps {
-        //         dir('terraform') {
-        //             sh 'terraform init'
+        //         withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+        //                 sh 'terraform init'
+        //                 sh 'terraform apply -auto-approve'
         //         }
         //     }
         // }
-
-        // stage('Terraform Apply') {
+        
+        // stage('Build React') {
         //     steps {
-        //         dir('terraform') {
-        //             sh 'terraform apply -auto-approve'
-        //         }
+        //         sh 'chmod +x build.sh'
+        //         sh './build.sh'
         //     }
         // }
 
+        // stage('Deploy to S3 & Invalidate CloudFront') {
+        //     steps {
+        //         withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+        //             sh 'aws s3 sync build/ s3://$S3_BUCKET --delete'
+        //             sh 'aws cloudfront create-invalidation --distribution-id E38MNKXRCVLOIR --paths "/*"'
+        //         }
+        //     }
+        // }
     }
 }
