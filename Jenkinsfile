@@ -5,14 +5,13 @@ pipeline {
 
         stage('Checkout Jenkins Repo') {
             steps {
-                git branch: 'main',
-                git 'https://github.com/prabhajayaraj/garments-website.git'
+                git branch: 'main', url: 'https://github.com/prabhajayaraj/garments-website.git'
             }
         }
 
         stage('Clone Terraform Repo') {
             steps {
-                git url: 'https://github.com/prabhajayaraj/garments.git', credentialsId: 'github-token'
+                git branch: 'main', url: 'https://github.com/prabhajayaraj/garments.git', credentialsId: 'github-token'
             }
         }
 
