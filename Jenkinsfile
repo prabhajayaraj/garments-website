@@ -7,7 +7,15 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Build Repo') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/prabhajayaraj/garments-website',
+                    credentialsId: 'aws-credentials'
+            }
+        }
+
+        stage('Checkout Code Repo') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/prabhajayaraj/garments-website-2',
