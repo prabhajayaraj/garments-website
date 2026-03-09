@@ -2,42 +2,26 @@
 pipeline {
     agent any
 
-    environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
-        S3_BUCKET = 'demo-surya-01 '
-    }
-
     stages {
-        stage('Checkout') {
+
+        stage('Clone Terraform Repo') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/prabhajayaraj/garments-website-2',
-                    credentialsId: 'aws-credentials'
+                git 'https://github.com/prabhajayaraj/garments.git'
             }
         }
-// New Terraform stage
+
         stage('Terraform Init & Apply') {
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve'
-                }
-            }
-        }
-        stage('Build React') {
-            steps {
-                sh 'chmod +x build.sh'
-                sh './build.sh'
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve'
             }
         }
 
-        stage('Deploy to S3 & Invalidate CloudFront') {
+        stage('Clone Website Repo') {
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-                    sh 'aws s3 sync build/ s3://$S3_BUCKET --delete'
-                    sh 'aws cloudfront create-invalidation --distribution-id E38MNKXRCVLOIR --paths "/*"'
-                }
+                git 'https://github.com/prabhajayaraj/garments-website-2.git'
             }
         }
+
     }
 }
