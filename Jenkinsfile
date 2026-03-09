@@ -19,7 +19,11 @@ pipeline {
 
         stage('Clone Website Repo') {
             steps {
-                git 'https://github.com/prabhajayaraj/garments-website-2.git'
+                git 'stage('Clone Terraform Repo') {
+    steps {
+        git url: 'https://github.com/prabhajayaraj/garments.git', credentialsId: 'github-token'
+    }
+}'
             }
         }
 
