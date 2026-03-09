@@ -15,6 +15,13 @@ pipeline {
             }
         }
 
+        stage('Build Project') {
+            steps {
+                sh 'chmod +x build.sh'
+                sh './build.sh'
+            }
+        }
+
         // stage('Checkout Code Repo') {
         //     steps {
         //         git branch: 'main',
