@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout Jenkins Repo') {
+        stage('Checkout Website Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/prabhajayaraj/garments-website.git'
             }
@@ -11,19 +11,27 @@ pipeline {
 
         stage('Clone Terraform Repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/prabhajayaraj/garments.git', credentialsId: 'github-token'
+                dir('terraform') {
+                    git branch: 'main',
+                    url: 'https://github.com/prabhajayaraj/garments.git',
+                    credentialsId: 'github-token'
+                }
             }
         }
 
         stage('Terraform Init') {
             steps {
-                sh 'terraform init'
+                dir('terraform') {
+                    sh 'terraform init'
+                }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve'
+                dir('terraform') {
+                    sh 'terraform apply -auto-approve'
+                }
             }
         }
 
