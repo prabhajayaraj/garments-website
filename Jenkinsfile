@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/prabhajayaraj/demo-frontend-webhosting',
+                    url: 'https://github.com/prabhajayaraj/garments-website-2',
                     credentialsId: 'aws-credentials'
             }
         }
