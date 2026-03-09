@@ -5,6 +5,7 @@ pipeline {
 
         stage('Checkout Jenkins Repo') {
             steps {
+                git branch: 'main',
                 git 'https://github.com/prabhajayaraj/garments-website.git'
             }
         }
