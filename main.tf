@@ -61,8 +61,8 @@ resource "aws_s3_bucket_policy" "public_policy" {
 # Route53 Hosted Zone
 #################################
 
-resource "aws_route53_zone" "prabhaj" {
-  name = "prabhaj.shop"
+resource "aws_route53_zone" "arunduppu" {
+  name = "arunduppu.shop"
 }
 
 #################################
@@ -71,11 +71,11 @@ resource "aws_route53_zone" "prabhaj" {
 
 resource "aws_acm_certificate" "certificate" {
   provider          = aws.us_east
-  domain_name       = "prabhaj.shop"
+  domain_name       = "arunduppu.shop"
   validation_method = "DNS"
 
   subject_alternative_names = [
-    "*.prabhaj.shop"
+    "*.arunduppu.shop"
   ]
 
   lifecycle {
@@ -92,7 +92,7 @@ resource "aws_route53_record" "cert_validation" {
 
   name    = each.value.resource_record_name
   type    = each.value.resource_record_type
-  zone_id = aws_route53_zone.prabhaj.zone_id
+  zone_id = aws_route53_zone.arunduppu.zone_id
   records = [each.value.resource_record_value]
   ttl     = 60
 }
@@ -123,8 +123,8 @@ resource "aws_acm_certificate_validation" "certificate" {
   default_root_object = "index.html"
 
   aliases = [
-    "prabhaj.shop",
-    "*.prabhaj.shop"
+    "arunduppu.shop",
+    "*.arunduppu.shop"
   ]
 
   default_cache_behavior {
@@ -162,8 +162,8 @@ resource "aws_acm_certificate_validation" "certificate" {
 #################################
 
 resource "aws_route53_record" "root" {
-  zone_id = aws_route53_zone.prabhaj.zone_id
-  name    = "prabhaj.shop"
+  zone_id = aws_route53_zone.arunduppu.zone_id
+  name    = "arunduppu.shop"
   type    = "A"
 
   alias {
@@ -174,8 +174,8 @@ resource "aws_route53_record" "root" {
 }
 
 resource "aws_route53_record" "wildcard" {
-  zone_id = aws_route53_zone.prabhaj.zone_id
-  name    = "*.prabhaj.shop"
+  zone_id = aws_route53_zone.arunduppu.zone_id
+  name    = "*.arunduppu.shop"
   type    = "A"
 
   alias {
