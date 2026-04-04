@@ -16,7 +16,7 @@ provider "aws" {
  # S3 Bucket
 #################################
 
-/* resource "aws_s3_bucket" "website" {
+ resource "aws_s3_bucket" "website" {
   bucket = "demo-surya-01"
 }
 
@@ -55,7 +55,7 @@ resource "aws_s3_bucket_policy" "public_policy" {
       Resource  = "${aws_s3_bucket.website.arn}/*"
     }]
   })
-} */
+} 
 
 #################################
 # Route53 Hosted Zone
@@ -107,7 +107,7 @@ resource "aws_acm_certificate_validation" "certificate" {
 # CloudFront Distribution
 #################################
 
-/* resource "aws_cloudfront_distribution" "website" {
+ resource "aws_cloudfront_distribution" "website" {
 
   origin {
     domain_name = aws_s3_bucket.website.bucket_regional_domain_name
@@ -183,4 +183,4 @@ resource "aws_route53_record" "wildcard" {
     zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
     evaluate_target_health = false
   }
-} */
+} 
